@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>profesor</servlet-name>
+        <servlet-class>profesor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>rechazarAsesoria</servlet-name>
+        <servlet-class>rechazarAsesoria</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>aceptarAsesoria</servlet-name>
+        <servlet-class>aceptarAsesoria</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profesor</servlet-name>
+        <url-pattern>/profesor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>rechazarAsesoria</servlet-name>
+        <url-pattern>/rechazarAsesoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>aceptarAsesoria</servlet-name>
+        <url-pattern>/aceptarAsesoria</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

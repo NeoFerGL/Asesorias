@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/styleasesoría.css">
+    <link rel="stylesheet" href="css/listamaterias.css">
+    <title>Registro</title>
+</head>
+
+<body>
+    <div class="container active">
+        <div class="form-container sign-up">
+            <!--Formulario para el alumno-->
+            <form id="solicitarA" action="formAsesoria" method="post">
+                <h1>Estudiante</h1>
+                <label for="matricula" style="text-align: right;">Matrícula:</label>
+                <input type="text" placeholder="Matrícula" name="matricula" required maxlength="9" minlength="1">
+                <label for="asignatura" style="text-align: right;">Asignatura:</label>
+                <div class="dropdown">
+                    <input type="text" id="dropdownInput" class="dropdown-input" placeholder="Buscar asignatura"  autocomplete="off">
+                    <ul id="dropdownList" class="dropdown-list">
+                        <li class="dropdown-list-item">Aplicaciones Web</li>
+                        <li class="dropdown-list-item">Modelos de Desarrollo Web</li>
+                    </ul>
+                </div>
+                <label for="asignatura" style="text-align: right;">Materia: </label>
+                <select id="maestrosSelect" disabled name="maestrosSelect">
+                    <option value="" selected disabled>Seleccionar maestro</option>
+                </select> 
+                <label for="asignatura" style="text-align: right;">Día: </label>
+                <input type="date" name="fechaSolicitud" required>
+                <label for="asignatura" style="text-align: right;">Hora: </label>
+                <input type="time" name="horaSolicitud" required>
+                <label for="asignatura" style="text-align: right;">Comentario:  </label>
+                <textarea name="message" rows="20" cols="30" style="width: 100%; height: 100px; resize: none;" required></textarea>
+                <button class="consultar">Enviar</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Bienvenido!</h1>
+                    <p>Ingresa tus datos para solicitar una asesoría</p>
+                    <a href="index.html">Estado de tus solicitudes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <!-- --><script src="js/listamaterias.js"></script>
+</body>

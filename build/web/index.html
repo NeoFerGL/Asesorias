@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Registro</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <!--Formulario para el alumno-->
+            <form action="login" method="post">
+                <h1>Estudiante</h1>
+                <label for="matricula" style="text-align: right;">Matrícula</label>
+                <input type="text" placeholder="Matrícula" name="matricula" required maxlength="11" minlength="1" id="estudiante">
+                <input type="hidden" name="rol" value="0"><!--Verificar si ingreso en el formulario correcto-->
+                <button class="consultar">Consultar</button>
+                <a href="formAsesoria.html">Solicitar asesoría</a>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <!--Formulario para docente-->
+            <form action="login" method="post">
+                <h1>Docente</h1>
+                <label for="id" style="text-align: right;">ID Docente: </label>
+                <input type="text" placeholder="ID Docente" name="matricula" required maxlength="11" minlength="1" id="docente">
+                <input type="hidden" name="rol" value="1"><!--Verificar si ingreso en el formulario correcto-->
+                <button class="consultar">Acceder</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Bienvenido!</h1>
+                    <p>Consulta el estado de las asesorías que has
+                        solicitado</p>
+                    <button class="hidden" id="login">Soy docente</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Bienvenido!</h1>
+                    <p>Inicia sesión para ver las nuevas solicitudes
+                        de asesoría.</p>
+                    <button class="hidden" id="register">Soy estudiante</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+
+</html>
