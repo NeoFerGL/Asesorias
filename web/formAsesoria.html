@@ -1,54 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="css/styleasesoría.css">
-    <link rel="stylesheet" href="css/listamaterias.css">
-    <title>Registro</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solicitud de Asesoría</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/styleasesoría.css" />
+  <link rel="stylesheet" href="css/listamaterias.css" />
 </head>
 
 <body>
-    <div class="container active">
-        <div class="form-container sign-up">
-            <!--Formulario para el alumno-->
-            <form id="solicitarA" action="formAsesoria" method="post">
-                <h1>Estudiante</h1>
-                <label for="matricula" style="text-align: right;">Matrícula:</label>
-                <input type="text" placeholder="Matrícula" name="matricula" required maxlength="9" minlength="1">
-                <label for="asignatura" style="text-align: right;">Asignatura:</label>
-                <div class="dropdown">
-                    <input type="text" id="dropdownInput" class="dropdown-input" placeholder="Buscar asignatura"  autocomplete="off">
-                    <ul id="dropdownList" class="dropdown-list">
-                        <li class="dropdown-list-item">Aplicaciones Web</li>
-                        <li class="dropdown-list-item">Modelos de Desarrollo Web</li>
-                    </ul>
-                </div>
-                <label for="asignatura" style="text-align: right;">Materia: </label>
-                <select id="maestrosSelect" disabled name="maestrosSelect">
-                    <option value="" selected disabled>Seleccionar maestro</option>
-                </select> 
-                <label for="asignatura" style="text-align: right;">Día: </label>
-                <input type="date" name="fechaSolicitud" required>
-                <label for="asignatura" style="text-align: right;">Hora: </label>
-                <input type="time" name="horaSolicitud" required>
-                <label for="asignatura" style="text-align: right;">Comentario:  </label>
-                <textarea name="message" rows="20" cols="30" style="width: 100%; height: 100px; resize: none;" required></textarea>
-                <button class="consultar">Enviar</button>
-            </form>
-        </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <h1>Bienvenido!</h1>
-                    <p>Ingresa tus datos para solicitar una asesoría</p>
-                    <a href="index.html">Estado de tus solicitudes</a>
-                </div>
-            </div>
-        </div>
+  <div class="container active">
+    <div class="form-container sign-up">
+      <!-- Formulario para el alumno -->
+      <form id="solicitudForm" action="formAsesoria" method="post">
+        <h1>Estudiante</h1>
+
+        <label for="matricula" style="text-align: right;">Matrícula:</label>
+        <input type="text" id="matricula" name="matricula" placeholder="Matrícula" required maxlength="9" minlength="1" />
+        <div id="matriculaError" class="error-message"></div>
+
+        <label for="asignatura" style="text-align: right;">Asignatura:</label>
+        <select id="asignatura" name="nrc" required disabled>
+          <option value="">Ingrese su matrícula primero</option>
+        </select>
+        <div id="asignaturaError" class="error-message"></div>
+
+        <label for="maestro" style="text-align: right;">Maestro:</label>
+        <select id="maestro" name="matricula_profesor" required disabled>
+          <option value="">Seleccione una asignatura primero</option>
+        </select>
+        <div id="maestroError" class="error-message"></div>
+
+        <label for="fecha" style="text-align: right;">Día:</label>
+        <input type="date" id="fecha" name="fechaSolicitud" required />
+
+        <label for="hora" style="text-align: right;">Hora:</label>
+        <input type="time" id="hora" name="horaSolicitud" required />
+
+        <label for="comentario" style="text-align: right;">Comentario:</label>
+        <textarea id="comentario" name="message" rows="20" cols="30" style="width: 100%; height: 100px; resize: none;" required>Aplicante</textarea>
+
+        <button type="submit" class="consultar">Enviar</button>
+      </form>
     </div>
-    
-     <!-- --><script src="js/listamaterias.js"></script>
+
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <h1>¡Bienvenido!</h1>
+          <p>Ingresa tus datos para solicitar una asesoría</p>
+          <a href="index.html">Estado de tus solicitudes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script mejorado para lógica -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const matriculaInput = document.getElementById('matricula');
+      const asignaturaSelect = document.getElementById('asignatura');
+      const maestroSelect = document.getElementById('maestro');
+
+      // Cargar asignaturas al ingresar matrícula
+      matriculaInput.addEventListener('change', function () {
+        const matricula = this.value.trim();
+
+        if (!matricula) {
+          asignaturaSelect.innerHTML = '<option value="">Ingrese su matrícula primero</option>';
+          asignaturaSelect.disabled = true;
+          return;
+        }
+
+        asignaturaSelect.innerHTML = '<option value="">Cargando asignaturas...</option>';
+        asignaturaSelect.disabled = false;
+
+        fetch(`formAsesoria?action=materias&matricula=${matricula}`)
+          .then(response => {
+            if (!response.ok) throw new Error('Error en el servidor');
+            return response.json();
+          })
+          .then(data => {
+            if (data.error) {
+              asignaturaSelect.innerHTML = `<option value="">${data.error}</option>`;
+              document.getElementById('asignaturaError').textContent = data.error;
+              return;
+            }
+
+            asignaturaSelect.innerHTML = '<option value="" selected disabled>Seleccione asignatura...</option>';
+
+            if (data.length === 0) {
+              asignaturaSelect.innerHTML += '<option value="">No tiene asignaturas registradas</option>';
+            } else {
+              data.forEach(materia => {
+                const option = document.createElement('option');
+                option.value = materia.NRC;
+                option.textContent = materia.materia;
+                asignaturaSelect.appendChild(option);
+              });
+            }
+
+            document.getElementById('asignaturaError').textContent = '';
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            asignaturaSelect.innerHTML = '<option value="">Error al cargar asignaturas</option>';
+            document.getElementById('asignaturaError').textContent = 'Error al conectar con el servidor';
+          });
+      });
+
+      // Cargar maestros al seleccionar asignatura
+      asignaturaSelect.addEventListener('change', function () {
+        const nrc = this.value;
+        maestroSelect.innerHTML = '<option value="">Cargando maestros...</option>';
+        maestroSelect.disabled = true;
+
+        if (!nrc) return;
+
+        fetch(`formAsesoria?action=maestros&nrc=${nrc}`)
+          .then(response => {
+            if (!response.ok) throw new Error('Error en el servidor');
+            return response.json();
+          })
+          .then(data => {
+            maestroSelect.innerHTML = '<option value="" selected disabled>Seleccione maestro...</option>';
+
+            if (data.length === 0) {
+              maestroSelect.innerHTML += '<option value="">No hay maestros disponibles</option>';
+            } else {
+              data.forEach(maestro => {
+                const option = document.createElement('option');
+                option.value = maestro.matricula;
+                option.textContent = `${maestro.nombre} ${maestro.apellidoP}`;
+                maestroSelect.appendChild(option);
+              });
+            }
+
+            maestroSelect.disabled = false;
+            document.getElementById('maestroError').textContent = '';
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            maestroSelect.innerHTML = '<option value="">Error al cargar maestros</option>';
+            document.getElementById('maestroError').textContent = 'Error al conectar con el servidor';
+          });
+      });
+
+      // Establecer fecha mínima (hoy)
+      document.getElementById('fecha').min = new Date().toISOString().split('T')[0];
+    });
+  </script>
 </body>
+
+</html>
