@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2025 a las 16:35:35
+-- Tiempo de generación: 07-06-2025 a las 18:37:14
 -- Versión del servidor: 11.5.2-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -62,11 +62,13 @@ CREATE TABLE `asesoria` (
 --
 
 INSERT INTO `asesoria` (`id`, `matricula`, `asunto`, `fechasolicitud`, `horasolicitud`, `estado`, `nrc`, `comentario`) VALUES
-(1, 1002, 'Consulta sobre entrega de proyecto', '2024-05-01', '10:00:00', 1, 201, 'Pendiente de respuesta'),
-(2, 1004, 'Dudas sobre la materia de bases de datos', '2024-05-02', '15:30:00', 1, 203, 'Aceptada '),
-(3, 1002, 'Solicitud de apoyo en modelo MVC', '2024-05-10', '09:09:00', 2, 202, 'Asesoria completada'),
-(4, 1004, 'Revision de ejercicios de programacion', '2024-05-07', '11:00:00', 0, 204, 'Pendiente'),
-(7, 1004, 'Aplicante', '2025-06-19', '09:00:00', 1, 203, 'Aceptado se puntal');
+(1, 1002, 'Consulta sobre entrega de proyecto', '2024-05-01', '10:00:00', 0, 201, 'Pendiente de revisión'),
+(2, 1004, 'Dudas sobre la materia de bases de datos', '2024-05-02', '15:30:00', 1, 203, 'Asesoría aceptada'),
+(3, 1002, 'Solicitud de apoyo en modelo MVC', '2024-05-10', '09:09:00', 2, 202, 'Asesoría denegada'),
+(4, 1004, 'Revision de ejercicios de programacion', '2024-05-07', '11:00:00', 2, 204, 'Asesoría denegada'),
+(7, 1004, 'Aplicante', '2025-06-19', '09:00:00', 1, 203, 'Asesoría aceptada'),
+(8, 1004, 'Aplicante para asesorÃ­a ', '2025-06-19', '07:00:00', 1, 204, 'Asesoría aceptada'),
+(9, 1002, 'Desarrollo de pagina ', '2025-06-25', '10:30:00', 1, 201, 'Horario aceptado ');
 
 -- --------------------------------------------------------
 
@@ -210,7 +212,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `asesoria`
 --
 ALTER TABLE `asesoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
